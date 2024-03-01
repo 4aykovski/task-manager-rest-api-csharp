@@ -22,7 +22,7 @@ paths:
         - bearerAuth: [ ]
       responses:
         "200":
-          description: succesfully got users
+          description: successfully got users
           content:
             application/json:
               schema:
