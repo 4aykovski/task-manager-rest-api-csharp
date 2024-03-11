@@ -1066,6 +1066,370 @@ paths:
                     type: string
                     example: Internal Server Error
 
+
+
+  /users/{user_id}/boards/{board_id}/categories:
+    get:
+      tags:
+        - users
+      summary: get all user categories on certain board
+      operationId: getUserBoardCategories
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: board_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successfully get user board categories
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: OK
+                  categories:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Private_category'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        "404":
+          description: user or board not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Error
+                  error:
+                    type: string
+                    example: user not found
+        "500":
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Error
+                  error:
+                    type: string
+                    example: Internal Server Error
+
+    post:
+      tags:
+        - users
+      summary: create new user board category
+      operationId: createUserBoardCategory
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: board_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: new board
+                color:
+                  type: string
+                  example: blue
+                board_id:
+                  type: string
+                  example: 1cef9488-ba25-4830-a0d5-75a8d50cd92d
+      responses:
+        "200":
+          description: successfully create new user board category
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: OK
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        "400":
+          description: wrong input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Error
+                  error:
+                    type: string
+                    example: wrong input
+        "404":
+          description: user or board not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Error
+                  error:
+                    type: string
+                    example: user not found
+        "500":
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Error
+                  error:
+                    type: string
+                    example: Internal Server Error
+
+
+  /users/{user_id}/boards/{board_id}/categories/{category_id}:
+    get:
+      tags:
+        - users
+      summary: get one user board
+      operationId: getUserBoardCategory
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: board_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: category_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successfully get user board category
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: OK
+                  board:
+                    $ref: '#/components/schemas/Private_category'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        "404":
+          description: user or board or category not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Error
+                  error:
+                    type: string
+                    example: user not found
+        "500":
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Error
+                  error:
+                    type: string
+                    example: Internal Server Error
+
+    put:
+      tags:
+        - users
+      summary: update one user board category
+      operationId: updateUserBoardCategory
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: board_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: category_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: new board
+                color:
+                  type: string
+                  example: blue
+                board_id:
+                  type: string
+                  example: 1cef9488-ba25-4830-a0d5-75a8d50cd92d
+      responses:
+        "200":
+          description: successfully update new user board
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: OK
+        "400":
+          description: wrong input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Error
+                  error:
+                    type: string
+                    example: wrong input
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        "404":
+          description: user or board or category not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Error
+                  error:
+                    type: string
+                    example: user not found
+        "500":
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Error
+                  error:
+                    type: string
+                    example: Internal Server Error
+
+    delete:
+      tags:
+        - users
+      summary: delete one user board category
+      operationId: deleteUserBoardCategory
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: board_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: category_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successfully delete user board category
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: OK
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        "404":
+          description: user or board or category not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Error
+                  error:
+                    type: string
+                    example: user not found
+        "500":
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Error
+                  error:
+                    type: string
+                    example: Internal Server Error
+
   /users/{user_id}/boards/{board_id}/tasks:
     get:
       tags:
@@ -2497,6 +2861,7 @@ paths:
                     type: string
                     example: Internal Server Error
 
+
   /projects/{project_id}/boards/{board_id}:
     get:
       tags:
@@ -2697,6 +3062,370 @@ paths:
                     type: string
                     example: Internal Server Error
       
+
+
+  /projects/{project_id}/boards/{board_id}/categories:
+    get:
+      tags:
+        - projects
+      summary: get all project categories on certain board
+      operationId: getProjectBoardCategories
+      parameters:
+        - name: project_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: board_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successfully get project board categories
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: OK
+                  categories:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Project_category'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        "404":
+          description: project or board not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Error
+                  error:
+                    type: string
+                    example: project not found
+        "500":
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Error
+                  error:
+                    type: string
+                    example: Internal Server Error
+
+    post:
+      tags:
+        - projects
+      summary: create new project board category
+      operationId: createProjectBoardCategory
+      parameters:
+        - name: project_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: board_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: new board
+                color:
+                  type: string
+                  example: blue
+                board_id:
+                  type: string
+                  example: 1cef9488-ba25-4830-a0d5-75a8d50cd92d
+      responses:
+        "200":
+          description: successfully create new project board category
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: OK
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        "400":
+          description: wrong input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Error
+                  error:
+                    type: string
+                    example: wrong input
+        "404":
+          description: project or board not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Error
+                  error:
+                    type: string
+                    example: project not found
+        "500":
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Error
+                  error:
+                    type: string
+                    example: Internal Server Error
+
+
+  /projects/{project_id}/boards/{board_id}/categories/{category_id}:
+    get:
+      tags:
+        - projects
+      summary: get one project board
+      operationId: getProjectBoardCategory
+      parameters:
+        - name: project_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: board_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: category_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successfully get project board category
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: OK
+                  board:
+                    $ref: '#/components/schemas/Project_category'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        "404":
+          description: project or board or category not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Error
+                  error:
+                    type: string
+                    example: project not found
+        "500":
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Error
+                  error:
+                    type: string
+                    example: Internal Server Error
+
+    put:
+      tags:
+        - projects
+      summary: update one project board category
+      operationId: updateProjectBoardCategory
+      parameters:
+        - name: project_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: board_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: category_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: new board
+                color:
+                  type: string
+                  example: blue
+                board_id:
+                  type: string
+                  example: 1cef9488-ba25-4830-a0d5-75a8d50cd92d
+      responses:
+        "200":
+          description: successfully update new project board
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: OK
+        "400":
+          description: wrong input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Error
+                  error:
+                    type: string
+                    example: wrong input
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        "404":
+          description: project or board or category not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Error
+                  error:
+                    type: string
+                    example: project not found
+        "500":
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Error
+                  error:
+                    type: string
+                    example: Internal Server Error
+
+    delete:
+      tags:
+        - projects
+      summary: delete one project board category
+      operationId: deleteProjectBoardCategory
+      parameters:
+        - name: project_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: board_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: category_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successfully delete project board category
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: OK
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        "404":
+          description: project or board or category not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Error
+                  error:
+                    type: string
+                    example: project not found
+        "500":
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Error
+                  error:
+                    type: string
+                    example: Internal Server Error
+
 
   /projects/{project_id}/boards/{board_id}/tasks:
     get:
@@ -2921,6 +3650,7 @@ paths:
                   error:
                     type: string
                     example: Internal Server Error
+
 
   /projects/{project_id}/owner:
     get:
@@ -3148,6 +3878,37 @@ components:
         board_id:
           type: string
           example: 1
+    Private_category:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 1
+        name:
+          type: string
+          example: example
+        color:
+          type: string
+          example: color
+        board_id:
+          type: string
+          example: 1
+    Project_category:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 1
+        name:
+          type: string
+          example: example
+        color:
+          type: string
+          example: color
+        board_id:
+          type: string
+          example: 1
+
 
 security:
   - bearerAuth: [ ]
